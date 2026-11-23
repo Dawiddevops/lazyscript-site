@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HTTDT2VL7Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HTTDT2VL7Z');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LazyScript — Automatyzacja AI, Python Playground &amp; Produkty Cyfrowe</title>
@@ -437,6 +445,9 @@ for ep in dane["odcinki"]:
         presetButtons.forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         editor.value = PRESETS[btn.dataset.preset];
+        if (typeof gtag === "function") {
+          gtag("event", "preset_select", { preset_name: btn.dataset.preset });
+        }
       });
     });
 
@@ -496,6 +507,9 @@ for ep in dane["odcinki"]:
         const ms = Math.round(performance.now() - t0);
         consoleOut.textContent = output.trimEnd() || "(Brak wyjścia na stdout)";
         pgStatus.textContent = `Gotowe (${ms} ms)`;
+        if (typeof gtag === "function") {
+          gtag("event", "playground_run", { duration_ms: ms });
+        }
       } catch (err) {
         consoleOut.classList.add("is-error");
         consoleOut.textContent = String(err);
