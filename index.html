@@ -3,28 +3,237 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LazyScript — Automatyzacja AI i gotowe skrypty</title>
+  <title>LazyScript — Automatyzacja AI, Python Playground &amp; Produkty Cyfrowe</title>
   <style>
-    :root { --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --muted: #94a3b8; --accent: #10b981; }
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-dark: #0b1220;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #10b981;
+      --accent-dark: #059669;
+      --danger: #f87171;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-    .wrap { max-width: 880px; margin: 0 auto; padding: 48px 24px; }
-    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 56px; }
-    .brand { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 32px 24px 64px; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 44px;
+    }
+    .brand { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
     .brand span { color: var(--accent); }
-    nav a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 0.95rem; }
+    nav { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; }
     nav a:hover { color: var(--text); }
-    .hero { background: var(--card); border: 1px solid #334155; border-radius: 16px; padding: 40px; margin-bottom: 32px; }
-    .badge { display: inline-block; background: rgba(16,185,129,0.15); color: var(--accent); padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; }
-    h1 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 16px; }
-    p { color: var(--muted); margin-bottom: 20px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 40px; }
-    .card { background: var(--card); border: 1px solid #334155; border-radius: 12px; padding: 24px; }
-    .card h3 { margin-bottom: 8px; font-size: 1.1rem; }
-    .btn { display: inline-block; background: var(--accent); color: #06281e; font-weight: 700; padding: 12px 22px; border-radius: 10px; text-decoration: none; }
-    .btn:hover { opacity: 0.92; }
-    .btn-outline { background: transparent; color: var(--text); border: 1px solid #475569; margin-left: 12px; }
-    footer { border-top: 1px solid #1e293b; padding-top: 24px; color: var(--muted); font-size: 0.9rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(30,41,59,0.9));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 40px;
+      margin-bottom: 36px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(16,185,129,0.14);
+      color: var(--accent);
+      border: 1px solid rgba(16,185,129,0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    h1 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); line-height: 1.18; margin-bottom: 14px; }
+    .hero p { color: var(--muted); max-width: 680px; margin-bottom: 24px; font-size: 1.05rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #052e22;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.96rem;
+    }
+    .btn:hover { background: #34d399; }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid #475569;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.05); }
+
+    .section-title { font-size: 1.45rem; margin-bottom: 8px; }
+    .section-sub { color: var(--muted); margin-bottom: 20px; font-size: 0.96rem; }
+
+    /* Playground */
+    .playground {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 44px;
+    }
+    .pg-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 14px 18px;
+      background: var(--surface-dark);
+      border-bottom: 1px solid var(--border);
+    }
+    .presets { display: flex; flex-wrap: wrap; gap: 8px; }
+    .preset-btn {
+      background: #1e293b;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .preset-btn.active, .preset-btn:hover {
+      color: var(--text);
+      border-color: var(--accent);
+      background: rgba(16,185,129,0.12);
+    }
+    .pg-controls { display: flex; align-items: center; gap: 10px; }
+    .pg-status { font-size: 0.84rem; color: var(--muted); font-family: monospace; }
+    .pg-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+    }
+    @media (max-width: 820px) {
+      .pg-grid { grid-template-columns: 1fr; }
+    }
+    .pane { display: flex; flex-direction: column; }
+    .pane + .pane { border-left: 1px solid var(--border); }
+    @media (max-width: 820px) {
+      .pane + .pane { border-left: none; border-top: 1px solid var(--border); }
+    }
+    .pane-head {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      background: rgba(15,23,42,0.55);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    textarea#codeEditor {
+      width: 100%;
+      min-height: 310px;
+      background: #0b1220;
+      color: #e2e8f0;
+      border: none;
+      padding: 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      resize: vertical;
+      outline: none;
+      tab-size: 4;
+    }
+    pre#consoleOut {
+      flex: 1;
+      min-height: 310px;
+      margin: 0;
+      padding: 16px;
+      background: #070b14;
+      color: #a7f3d0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-y: auto;
+    }
+    pre#consoleOut.is-error { color: var(--danger); }
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.76rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .clear-btn:hover { color: var(--text); }
+
+    /* Products */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-tag {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .card h3 { font-size: 1.12rem; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 0.93rem; margin-bottom: 18px; }
+    .card-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid rgba(51,65,85,0.7);
+      font-size: 0.9rem;
+    }
+    .price { font-weight: 800; color: var(--text); }
+    .soon { color: var(--muted); font-size: 0.84rem; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
     footer a { color: var(--muted); text-decoration: none; margin-right: 16px; }
     footer a:hover { color: var(--accent); }
   </style>
@@ -32,48 +241,271 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="brand">&gt;_ Lazy<span>Script</span></div>
+      <a class="brand" href="index.html">&gt;_ Lazy<span>Script</span></a>
       <nav>
-        <a href="https://www.youtube.com/@lazyscriptlab" target="_blank">YouTube</a>
-        <a href="https://www.tiktok.com/@lazyscript.lab" target="_blank">TikTok</a>
+        <a href="#playground">Playground</a>
+        <a href="#produkty">Produkty</a>
+        <a href="https://www.youtube.com/@lazyscriptlab" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.tiktok.com/@lazyscript.lab" target="_blank" rel="noopener">TikTok</a>
         <a href="terms.html">Terms</a>
         <a href="privacy.html">Privacy</a>
       </nav>
     </header>
 
     <section class="hero">
-      <div class="badge">AI Automation &amp; Local LLMs</div>
-      <h1>Gotowe skrypty Python i lokalne AI — bez lania wody.</h1>
+      <div class="badge">Python w przeglądarce &bull; 0 zł serwera &bull; Sandbox WASM</div>
+      <h1>Przetestuj skrypty Pythona na żywo — zanim cokolwiek zainstalujesz.</h1>
       <p>
-        Tworzymy praktyczne narzędzia do automatyzacji pracy, lokalnych modeli językowych
-        oraz publikacji wideo. Zero zbędnej teorii — sam konkretny kod i działające workflow.
+        Edytuj kod, kliknij <strong>Uruchom</strong> i zobacz wynik od razu w przeglądarce (Pyodide WebAssembly).
+        Zero konfiguracji, zero ryzyka — gotowe narzędzia i paczki automatyzacji z kanału LazyScript.
       </p>
-      <a class="btn" href="https://www.youtube.com/@lazyscriptlab" target="_blank">Oglądaj na YouTube</a>
-      <a class="btn btn-outline" href="publisher.html">LazyScript Publisher</a>
+      <div class="actions">
+        <a class="btn" href="#playground">Otwórz Playground &darr;</a>
+        <a class="btn btn-outline" href="#produkty">Produkty cyfrowe</a>
+      </div>
     </section>
 
-    <div class="grid">
-      <div class="card">
-        <h3>Produkty Cyfrowe</h3>
-        <p>Paczki gotowych skryptów Python, szablony automatyzacji i poradniki wdrożeniowe (wkrótce w sprzedaży).</p>
+    <section id="playground">
+      <h2 class="section-title">LazyScript Python Playground</h2>
+      <p class="section-sub">Wybierz gotowy przykład z odcinka albo napisz własny skrypt i naciśnij <code>Ctrl + Enter</code>.</p>
+
+      <div class="playground">
+        <div class="pg-bar">
+          <div class="presets" id="presetBar">
+            <button class="preset-btn active" data-preset="ai_calc">Kalkulator AI (0 zł vs Chmura)</button>
+            <button class="preset-btn" data-preset="csv_clean">Czyszczenie danych</button>
+            <button class="preset-btn" data-preset="pass_gen">Generator haseł</button>
+            <button class="preset-btn" data-preset="json_parse">Parser JSON</button>
+          </div>
+          <div class="pg-controls">
+            <span class="pg-status" id="pgStatus">Gotowy (WASM)</span>
+            <button class="btn" id="runBtn" type="button">&#9654; Uruchom</button>
+          </div>
+        </div>
+
+        <div class="pg-grid">
+          <div class="pane">
+            <div class="pane-head">
+              <span>main.py</span>
+              <span>Python 3.12 (Pyodide)</span>
+            </div>
+            <textarea id="codeEditor" spellcheck="false"></textarea>
+          </div>
+          <div class="pane">
+            <div class="pane-head">
+              <span>Konsola</span>
+              <button class="clear-btn" id="clearBtn" type="button">Wyczyść</button>
+            </div>
+            <pre id="consoleOut">Kliknij "Uruchom", aby wykonać skrypt w przeglądarce...</pre>
+          </div>
+        </div>
       </div>
-      <div class="card">
-        <h3>Lokalne Modele AI</h3>
-        <p>Praktyczne konfiguracje modeli open-weights działających lokalnie za 0 zł, z pełną prywatnością danych.</p>
+    </section>
+
+    <section id="produkty">
+      <h2 class="section-title">Produkty Cyfrowe LazyScript</h2>
+      <p class="section-sub">Gotowe paczki skryptów i playbooki wdrożeniowe — wkrótce dostępne do pobrania.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div>
+            <div class="card-tag">Starter Pack</div>
+            <h3>15 Skryptów Automatyzacji Python</h3>
+            <p>Gotowe narzędzia do czyszczenia CSV/Excela, raportów PDF, rename plików i codziennych zadań biurowych.</p>
+          </div>
+          <div class="card-foot">
+            <span class="price">Wkrótce</span>
+            <span class="soon">Odcinek 01–05</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="card-tag">Lokalne AI</div>
+            <h3>Playbook: Lokalne Modele bez Chmury</h3>
+            <p>Konfiguracja lokalnego LLM, prywatne przetwarzanie dokumentów i automatyczne podsumowania za 0 zł/msc.</p>
+          </div>
+          <div class="card-foot">
+            <span class="price">Wkrótce</span>
+            <span class="soon">Zero abonamentów</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="card-tag">Creator Pipeline</div>
+            <h3>Automat Wideo + Social Media</h3>
+            <p>Kompletny pipeline TTS + napisy + FFmpeg + publikacja na YouTube, Facebooka, Instagrama i TikToka.</p>
+          </div>
+          <div class="card-foot">
+            <span class="price">Wkrótce</span>
+            <span class="soon">Dla twórców</span>
+          </div>
+        </div>
       </div>
-      <div class="card">
-        <h3>LazyScript Publisher</h3>
-        <p>Wewnętrzne narzędzie integracyjne do bezpiecznej publikacji oryginalnych materiałów edukacyjnych przez oficjalne API.</p>
-      </div>
-    </div>
+    </section>
 
     <footer>
       <div>&copy; 2026 LazyScript Lab</div>
       <div>
+        <a href="publisher.html">Publisher</a>
         <a href="terms.html">Terms of Service</a>
         <a href="privacy.html">Privacy Policy</a>
       </div>
     </footer>
   </div>
+
+  <script>
+    const PRESETS = {
+      ai_calc: `# Porównanie kosztów: Chmurowe API vs Lokalne AI (Odcinek 01)
+zapytania_dziennie = 120
+cena_za_1k_tokenow_usd = 0.015
+srednio_tokenow = 2500
+kurs_usd_pln = 4.0
+
+miesieczny_koszt_chmura = (
+    zapytania_dziennie * 30 * (srednio_tokenow / 1000) * cena_za_1k_tokenow_usd * kurs_usd_pln
+)
+
+print("=== Kalkulator Kosztów AI ===")
+print(f"Zapytania / miesiąc : {zapytania_dziennie * 30}")
+print(f"Chmurowe API (ok.)  : {miesieczny_koszt_chmura:.2f} PLN / msc")
+print(f"Lokalny model MoE   : 0.00 PLN / msc (dane zostają u Ciebie)")
+print(f"Oszczędność roczna  : {miesieczny_koszt_chmura * 12:.2f} PLN")`,
+
+      csv_clean: `# Szybkie czyszczenie brudnych danych bez Excela
+surowe_rekordy = [
+    "  anna@firma.pl ",
+    "JAN@DOMENA.PL",
+    "anna@firma.pl",
+    "brak-malpy.pl",
+    "  piotr@sklep.pl",
+]
+
+czyste = sorted({
+    mail.strip().lower()
+    for mail in surowe_rekordy
+    if "@" in mail and "." in mail
+})
+
+print(f"Wejście : {len(surowe_rekordy)} rekordów")
+print(f"Po czyszczeniu ({len(czyste)} unikalnych):")
+for i, mail in enumerate(czyste, 1):
+    print(f"  {i}. {mail}")`,
+
+      pass_gen: `import secrets
+import string
+
+def generuj_haslo(dlugosc: int = 16) -> str:
+    alfabet = string.ascii_letters + string.digits + "!@#$%^&*"
+    return "".join(secrets.choice(alfabet) for _ in range(dlugosc))
+
+print("=== Bezpieczne hasła (moduł secrets) ===")
+for idx in range(1, 6):
+    print(f"Hasło #{idx}: {generuj_haslo(18)}")`,
+
+      json_parse: `import json
+
+odpowiedz_api = '''
+{
+  "kanal": "@lazyscriptlab",
+  "odcinki": [
+    {"nr": 1, "temat": "Lokalne AI za 0 zł", "opublikowany": true},
+    {"nr": 2, "temat": "Automat raportów PDF", "opublikowany": false}
+  ]
+}
+'''
+
+dane = json.loads(odpowiedz_api)
+print(f"Kanał: {dane['kanal']}")
+for ep in dane["odcinki"]:
+    status = "LIVE" if ep["opublikowany"] else "PLAN"
+    print(f"  [{status}] Odcinek {ep['nr']:02d}: {ep['temat']}")`
+    };
+
+    const editor = document.getElementById("codeEditor");
+    const consoleOut = document.getElementById("consoleOut");
+    const runBtn = document.getElementById("runBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const pgStatus = document.getElementById("pgStatus");
+    const presetButtons = document.querySelectorAll(".preset-btn");
+
+    editor.value = PRESETS.ai_calc;
+
+    presetButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        presetButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        editor.value = PRESETS[btn.dataset.preset];
+      });
+    });
+
+    editor.addEventListener("keydown", (e) => {
+      if (e.key === "Tab") {
+        e.preventDefault();
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
+        editor.value = editor.value.substring(0, start) + "    " + editor.value.substring(end);
+        editor.selectionStart = editor.selectionEnd = start + 4;
+      } else if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        runCode();
+      }
+    });
+
+    clearBtn.addEventListener("click", () => {
+      consoleOut.classList.remove("is-error");
+      consoleOut.textContent = "";
+    });
+
+    let pyodideInstance = null;
+    let pyodideLoading = null;
+
+    async function ensurePyodide() {
+      if (pyodideInstance) return pyodideInstance;
+      if (!pyodideLoading) {
+        pyodideLoading = (async () => {
+          pgStatus.textContent = "Ładowanie Pythona (WASM)...";
+          if (!window.loadPyodide) {
+            await new Promise((resolve, reject) => {
+              const s = document.createElement("script");
+              s.src = "https://cdn.jsdelivr.net/pyodide/v0.27.5/full/pyodide.js";
+              s.onload = resolve;
+              s.onerror = () => reject(new Error("Nie udało się pobrać Pyodide CDN."));
+              document.head.appendChild(s);
+            });
+          }
+          pyodideInstance = await window.loadPyodide();
+          return pyodideInstance;
+        })();
+      }
+      return pyodideLoading;
+    }
+
+    async function runCode() {
+      runBtn.disabled = true;
+      consoleOut.classList.remove("is-error");
+      const t0 = performance.now();
+      try {
+        const pyodide = await ensurePyodide();
+        pgStatus.textContent = "Wykonywanie...";
+        let output = "";
+        pyodide.setStdout({ batched: (msg) => { output += msg + "\n"; } });
+        pyodide.setStderr({ batched: (msg) => { output += msg + "\n"; } });
+        await pyodide.runPythonAsync(editor.value);
+        const ms = Math.round(performance.now() - t0);
+        consoleOut.textContent = output.trimEnd() || "(Brak wyjścia na stdout)";
+        pgStatus.textContent = `Gotowe (${ms} ms)`;
+      } catch (err) {
+        consoleOut.classList.add("is-error");
+        consoleOut.textContent = String(err);
+        pgStatus.textContent = "Błąd wykonania";
+      } finally {
+        runBtn.disabled = false;
+      }
+    }
+
+    runBtn.addEventListener("click", runCode);
+  </script>
 </body>
 </html>
