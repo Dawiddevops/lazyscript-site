@@ -251,6 +251,7 @@
     <header>
       <a class="brand" href="index.html">&gt;_ Lazy<span>Script</span></a>
       <nav>
+        <a href="#prompty">Prompty z rolek</a>
         <a href="#playground">Playground</a>
         <a href="#produkty">Produkty</a>
         <a href="https://www.youtube.com/@lazyscriptlab" target="_blank" rel="noopener">YouTube</a>
@@ -268,8 +269,38 @@
         Zero konfiguracji, zero ryzyka — gotowe narzędzia i paczki automatyzacji z kanału LazyScript.
       </p>
       <div class="actions">
-        <a class="btn" href="#playground">Otwórz Playground &darr;</a>
+        <a class="btn" href="#prompty">Prompty z rolek &darr;</a>
+        <a class="btn btn-outline" href="#playground">Python Playground</a>
         <a class="btn btn-outline" href="#produkty">Produkty cyfrowe</a>
+      </div>
+    </section>
+
+    <section id="prompty">
+      <h2 class="section-title">Gotowe prompty i filtry z rolek</h2>
+      <p class="section-sub">Skopiuj jednym kliknięciem i wklej na końcu wiadomości w ChatGPT, Gemini lub Claude.</p>
+      <div class="grid">
+        <article class="card">
+          <div>
+            <span class="card-tag">Odcinek 07 &bull; Zero lania wody</span>
+            <h3>Koniec sztucznych ścian tekstu</h3>
+            <p id="p_ep07">Zanim odpowiesz, zadaj mi 3 krótkie pytania doprecyzowujące (do kogo piszę, jaki jest cel i jaki ton będzie odpowiedni).</p>
+          </div>
+          <div class="card-foot">
+            <span class="soon">5 sekund pisania</span>
+            <button class="btn copy-btn" type="button" data-copy-target="p_ep07" data-prompt-id="ep07_3_questions">Kopiuj prompt</button>
+          </div>
+        </article>
+        <article class="card">
+          <div>
+            <span class="card-tag">Odcinek 08 &bull; Długie PDF-y i spotkania</span>
+            <h3>3-punktowy filtr dokumentów</h3>
+            <p id="p_ep08">Przeanalizuj ten dokument i wypisz tylko 3 rzeczy — zero streszczenia i zero wstępu: 1) podjęte decyzje, 2) zadania przypisane do mnie, 3) konkretne terminy.</p>
+          </div>
+          <div class="card-foot">
+            <span class="soon">10 s zamiast godziny</span>
+            <button class="btn copy-btn" type="button" data-copy-target="p_ep08" data-prompt-id="ep08_pdf_filter">Kopiuj filtr</button>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -520,6 +551,20 @@ for ep in dane["odcinki"]:
     }
 
     runBtn.addEventListener("click", runCode);
+
+    document.querySelectorAll(".copy-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const targetEl = document.getElementById(btn.dataset.copyTarget);
+        if (!targetEl) return;
+        await navigator.clipboard.writeText(targetEl.textContent.trim());
+        const old = btn.textContent;
+        btn.textContent = "Skopiowano ✓";
+        if (typeof gtag === "function") {
+          gtag("event", "prompt_copy", { prompt_id: btn.dataset.promptId });
+        }
+        setTimeout(() => { btn.textContent = old; }, 1800);
+      });
+    });
   </script>
 </body>
 </html>
